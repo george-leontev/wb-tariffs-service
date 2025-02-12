@@ -11,7 +11,7 @@ export class TariffUpdaterScheduler {
         private readonly dbService: DbService,
     ) {}
 
-    @Cron('*/1 * * * *')
+    @Cron('*/20 * * * * *')
     async handleCron() {
         console.log('Получение данных с API Wildberries...');
         try {

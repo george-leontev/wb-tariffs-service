@@ -5,6 +5,7 @@ export class WbTariffResponseModel {
 }
 
 export class WbTariffModel {
+    date: string;
     boxDeliveryAndStorageExpr: string;
     boxDeliveryBase: string;
     boxDeliveryLiter: string;
