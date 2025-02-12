@@ -1,0 +1,21 @@
+services:
+    tariff-fetcher-database:
+        container_name: tariff-fetcher-database
+        build:
+            dockerfile: Dockerfile.database
+            context: .
+        environment:
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_USER=${DB_USER}
+        volumes:
+            - database-volume:/var/lib/postgresql/data
+        ports:
+            - ${DB_PORT}:5432
+
+volumes:
+    database-volume:
+        driver: local
+        driver_opts:
+            o: bind
+            type: none
+            device: ./.database
