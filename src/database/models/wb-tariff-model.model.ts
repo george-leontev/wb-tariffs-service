@@ -1,9 +1,3 @@
-export class WbTariffResponseModel {
-    dtNextBox: Date;
-    dtTillMax: Date;
-    warehouseList: WbTariffModel[];
-}
-
 export class WbTariffModel {
     date: string;
     boxDeliveryAndStorageExpr: string;

@@ -8,12 +8,19 @@ services:
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - POSTGRES_USER=${DB_USER}
         volumes:
-            - database-volume:/var/lib/postgresql/data
+            - tariff-fetcher-database-volume:/var/lib/postgresql/data
         ports:
             - ${DB_PORT}:5432
+    tariff-fetcher-web-api:
+        container_name: tariff-fetcher-web-api
+        build:
+            dockerfile: Dockerfile.web-api
+            context: .
+        ports:
+          - 3000:3000
 
 volumes:
-    database-volume:
+    tariff-fetcher-database-volume:
         driver: local
         driver_opts:
             o: bind

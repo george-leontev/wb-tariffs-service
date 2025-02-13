@@ -1,7 +1,7 @@
+import axios, { AxiosResponse } from 'axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import axios, { AxiosResponse } from 'axios';
-import { WbTariffResponseModel } from '../models/wb-tariff-model.model';
+import { WbTariffResponseModel } from './models/wb-tariff-response.model';
 
 @Injectable()
 export class WbApiService {
@@ -15,7 +15,7 @@ export class WbApiService {
     /**
      * Получение данных о тарифах коробов с API Wildberries.
      */
-    async fetchTariffs(): Promise<WbTariffResponseModel> {
+    async getAsync(): Promise<WbTariffResponseModel> {
         const today = new Date().toISOString().split('T')[0];
 
         try {

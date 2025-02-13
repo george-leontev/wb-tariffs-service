@@ -3,6 +3,9 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "assets": [
+      { "include": "../google-credentials.json", "outDir": "dist/google-credentials.json", "watchAssets": true }
+    ]
   }
 }

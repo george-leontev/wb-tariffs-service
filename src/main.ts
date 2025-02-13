@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { resolve, dirname } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    global.appRootPath = dirname(resolve(__dirname));
+
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
     const config = new DocumentBuilder()
         .setTitle('WB TARIFFS API')

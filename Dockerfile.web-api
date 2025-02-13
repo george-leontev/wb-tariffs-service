@@ -1,0 +1,21 @@
+FROM node:latest
+
+# ENV NODE_ENV=production
+
+WORKDIR /app/
+
+COPY ./src /app/src
+COPY ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
+COPY ./.env.production /app/.env
+
+RUN npm i -g typescript
+RUN npm i -g @nestjs/cli
+RUN npm i
+RUN npm run build
+
+RUN rm -rf ./src
+RUN rm -rf ./tsconfig.json ./tsconfig.build.json
+
+EXPOSE 3000
+
+CMD [ "node", "dist/main" ]
