@@ -11,13 +11,15 @@
 ```npm install```
 
 ## Startup Instructions
-1. Install Docker Engine if necessary: <ins>https://docs.docker.com/engine/install/ubuntu/</ins>
+1. Run command ```docker compose -f 'docker-compose.yaml' up -d --build```
 
-2. Open docker-compose.yaml file.
+2. Or install Docker Engine if necessary: <ins>https://docs.docker.com/engine/install/ubuntu/</ins>
 
-3. Right-click on the <ins>docker-compose.yaml</ins> file.
+3. Open docker-compose.yaml file.
 
-4. Click on the **Compose Up** button.
+4. Right-click on the <ins>docker-compose.yaml</ins> file.
+
+5. Click on the **Compose Up** button.
 
 ### After the Docker container are up and running you finnaly can use app :)
 
