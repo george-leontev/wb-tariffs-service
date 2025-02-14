@@ -1,15 +1,17 @@
 FROM node:latest
 
-# ENV NODE_ENV=production
-
 WORKDIR /app/
 
 COPY ./src /app/src
-COPY ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
+COPY ./migrations /app/migrations
+
+COPY ./knexfile.ts ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
 COPY ./.env.production /app/.env
 
 RUN npm i -g typescript
 RUN npm i -g @nestjs/cli
+RUN npm install knex -g
+
 RUN npm i
 RUN npm run build
 
@@ -17,5 +19,6 @@ RUN rm -rf ./src
 RUN rm -rf ./tsconfig.json ./tsconfig.build.json
 
 EXPOSE 3000
+#CMD ["sleep", "1000"]
 
-CMD [ "node", "dist/main" ]
+CMD ["sh", "-c", "knex migrate:latest --env production && node dist/src/main"]

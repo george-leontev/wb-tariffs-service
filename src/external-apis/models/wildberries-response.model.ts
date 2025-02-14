@@ -1,5 +1,5 @@
-import { WbTariffListModel } from './wb-tariff-list.model';
+import { WildberriesTariffListModel } from './wildberries-tariff-list.model';
 
-export class VResponseModel {
-    response: { data: WbTariffListModel };
+export class WildberriesResponseModel {
+    response: { data: WildberriesTariffListModel };
 }

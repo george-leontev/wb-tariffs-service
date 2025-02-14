@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Injectable } from '@nestjs/common';
 import { google, sheets_v4 } from 'googleapis';
-import db from '../database';
+import { PersistentStorageService } from '../persistent-storage/persistent-storage.service';
 
+/**
+ * Allow to import collected data in the persistent-storage into Google Sheet table
+ */
 @Injectable()
 export class GoogleSheetImportService {
     private readonly sheets: sheets_v4.Sheets;
 
-    constructor() {
+    constructor(private readonly persistentStorageService: PersistentStorageService) {
         const auth = new google.auth.GoogleAuth({
             keyFile: `${global.appRootPath}/google-credentials.json`,
             scopes: [
@@ -21,33 +23,34 @@ export class GoogleSheetImportService {
     }
 
     /**
-     * Импорт данных из базы данных в Google Таблицу.
+     * Imports data from the persistent-storage into Google Sheet table
      */
-    async importAsync(spreadsheetId: string): Promise<void> {
-        const data = await db('wb_tariffs').select('*').orderBy('box_delivery_and_storage_expr', 'asc');
+    async executeAsync(spreadsheetId: string): Promise<void> {
+        try {
+            const data = await this.persistentStorageService.getAsync();
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-        const rows = data.map((item) => [
-            item.box_delivery_and_storage_expr,
-            item.box_delivery_base,
-            item.date,
-            item.warehouse_name,
-        ]);
+            const sheet = data.map((item) => {
+                return [item.box_delivery_and_storage_expr, item.box_delivery_base, item.date, item.warehouse_name];
+            });
 
-        await this.sheets.spreadsheets.values.clear({
-            spreadsheetId: spreadsheetId,
-            range: 'A1:ZZ9999',
-        });
+            await this.sheets.spreadsheets.values.clear({
+                spreadsheetId: spreadsheetId,
+                range: 'A1:Z9999',
+            });
 
-        await this.sheets.spreadsheets.values.append({
-            spreadsheetId: spreadsheetId,
-            range: 'A1', // Начальная ячейка для записи
-            valueInputOption: 'RAW',
-            requestBody: {
-                values: rows,
-            },
-        });
+            await this.sheets.spreadsheets.values.append({
+                spreadsheetId: spreadsheetId,
+                range: 'A1',
+                valueInputOption: 'RAW',
+                requestBody: {
+                    values: sheet,
+                },
+            });
+            console.log(`Data has been downloaded into Google Sheet ${spreadsheetId}.`);
+        } catch (error) {
+            console.error('The error occurred during downloading data into Goggle Sheet:', (error as Error).message);
 
-        console.log(`Data has been downloaded into Google Sheet ${spreadsheetId}.`);
+            throw new Error(`Failed to send data into Goggle Sheet ${spreadsheetId}`);
+        }
     }
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DatabaseService } from './database.service';
+import { PersistentStorageService } from './persistent-storage.service';
 
 @Module({
-    providers: [DatabaseService],
+    providers: [PersistentStorageService],
 })
-export class DatabaseModule {}
+export class PersistentStorageModule {}

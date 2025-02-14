@@ -1,4 +1,4 @@
-export class WbTariffModel {
+export class WildberriesTariffModel {
     warehouseName: string;
 
     date: string;

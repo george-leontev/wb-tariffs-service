@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { WbTariffListModel } from './models/wb-tariff-list.model';
-import { WbResponseModel } from './models/wb-response.model';
+import { WildberriesTariffListModel } from './models/wildberries-tariff-list.model';
+import { WildberriesResponseModel } from './models/wildberries-response.model';
 
 /**
  * Allow to export box-tariffs data from the Wildberries API
  */
 @Injectable()
-export class WbExportService {
+export class WildberriesExportService {
     private readonly wbApiUrl?: string;
     private readonly apiKey?: string;
 
@@ -20,11 +20,12 @@ export class WbExportService {
     /**
      * Gets data about box-tariffs from the Wildberries API
      */
-    async getAsync(): Promise<WbTariffListModel | undefined> {
-        const [today] = new Date().toISOString().split('T');
+    async executeAsync(): Promise<WildberriesTariffListModel | undefined> {
+        console.log('Exporting data from  Wildberries API...');
 
+        const [today] = new Date().toISOString().split('T');
         try {
-            const response: AxiosResponse<WbResponseModel> = await axios.get(this.wbApiUrl!, {
+            const response: AxiosResponse<WildberriesResponseModel> = await axios.get(this.wbApiUrl!, {
                 headers: {
                     Authorization: `Bearer ${this.apiKey}`,
                     'Content-Type': 'application/json',
@@ -33,8 +34,6 @@ export class WbExportService {
                     date: today,
                 },
             });
-
-            console.log('The response from Wildberries API:', response.data);
 
             if (response && response.data.response) {
                 return response.data.response.data;

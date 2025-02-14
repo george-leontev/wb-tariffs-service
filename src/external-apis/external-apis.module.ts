@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GoogleSheetImportService } from './google-sheet-import.service';
-import { WbApiService } from './wb-api.service';
+import { WildberriesExportService } from './wildberries-export.service';
 
 Module({
-    providers: [GoogleSheetImportService, WbApiService],
+    providers: [GoogleSheetImportService, WildberriesExportService],
 });
-export class ApisModule {}
+export class ExternalApisModule {}
