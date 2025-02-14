@@ -5,7 +5,7 @@ WORKDIR /app/
 COPY ./src /app/src
 COPY ./migrations /app/migrations
 
-COPY ./knexfile.ts ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
+COPY ./knexfile.js ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
 COPY ./.env.production /app/.env
 
 RUN npm i -g typescript

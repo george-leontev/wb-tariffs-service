@@ -18,3 +18,5 @@ services:
           - "3000:3000"
         depends_on:
             - wb-tariff-service-database
+        restart: always
+
