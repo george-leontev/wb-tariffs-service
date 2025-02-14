@@ -1,6 +1,6 @@
-import { Knex } from 'knex';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
-export async function up(knex: Knex): Promise<void> {
+export async function up(knex) {
     await knex.schema.createTable('wb_tariffs', (table) => {
         table.increments('id').primary();
         table.date('date').notNullable();
@@ -14,6 +14,6 @@ export async function up(knex: Knex): Promise<void> {
     });
 }
 
-export async function down(knex: Knex): Promise<void> {
+export async function down(knex): Promise<void> {
     await knex.schema.dropTable('wb_tariffs');
 }

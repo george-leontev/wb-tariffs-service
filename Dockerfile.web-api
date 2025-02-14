@@ -5,7 +5,7 @@ WORKDIR /app/
 COPY ./src /app/src
 COPY ./migrations /app/migrations
 
-COPY ./knexfile.js ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
+COPY ./knexfile.ts ./tsconfig.json ./tsconfig.build.json ./package.json ./nest-cli.json ./google-credentials.json /app/
 COPY ./.env.production /app/.env
 
 RUN npm i -g typescript
@@ -19,6 +19,6 @@ RUN rm -rf ./src
 RUN rm -rf ./tsconfig.json ./tsconfig.build.json
 
 EXPOSE 3000
-#CMD ["sleep", "1000"]
+# CMD ["sleep", "1000"]
 
 CMD ["sh", "-c", "knex migrate:latest --env production && node dist/src/main"]
