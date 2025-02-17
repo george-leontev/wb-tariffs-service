@@ -11,11 +11,11 @@
 ```npm install```
 
 ## Startup Instructions
-1. Run command ```docker compose -f 'docker-compose.yaml' up -d --build```
+1. Install Docker Engine if necessary: <ins>https://docs.docker.com/engine/install/ubuntu/</ins>
 
-2. Or install Docker Engine if necessary: <ins>https://docs.docker.com/engine/install/ubuntu/</ins>
+2. Run command ```docker compose -f 'docker-compose.yaml' up -d --build```
 
-3. Open docker-compose.yaml file.
+3. If open docker-compose.yaml file.
 
 4. Right-click on the <ins>docker-compose.yaml</ins> file.
 
