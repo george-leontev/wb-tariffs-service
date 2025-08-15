@@ -19,6 +19,5 @@ RUN rm -rf ./src
 RUN rm -rf ./tsconfig.json ./tsconfig.build.json
 
 EXPOSE 3000
-# CMD ["sleep", "1000"]
 
 CMD ["sh", "-c", "knex migrate:latest --env production && node dist/src/main"]
